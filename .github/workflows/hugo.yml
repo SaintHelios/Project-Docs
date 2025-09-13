@@ -15,19 +15,10 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 'latest'
+          hugo-version: '0.150.0'
           extended: true
-
-      - name: Fix Dart Sass permissions
-        run: sudo chmod +rx $(which sass)
-
-      - name: Install Dart Sass
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y npm
-          sudo npm install -g sass
 
       - name: Build
         run: hugo --minify
