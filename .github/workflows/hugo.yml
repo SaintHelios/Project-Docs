@@ -20,6 +20,9 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
+      - name: Fix Dart Sass permissions
+        run: sudo chmod +rx $(which sass)
+
       - name: Install Dart Sass
         run: |
           sudo apt-get update
