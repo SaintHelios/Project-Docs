@@ -1,4 +1,17 @@
 baseURL = 'https://helioscq.xyz/'
 languageCode = 'en-us'
-title = 'My Blogs'
+title = 'Helios Project Vault'
 theme = 'awesome'
+
+[Languages.en-gb.params]
+  sitename = "Helioscq"
+  defaultColor = "dark"
+
+[Languages.en-gb.params.author]
+  avatar = "meow.jpg"
+  intro = "Project Vault"
+  name = "SaintHelios @ GitHub"
+  description = "Anything I do will end up in here. Have fun reading my slop."
+[[params.socialIcons]]
+name = "github"
+url = "https://github.com/SaintHelios"
