@@ -1,6 +1,6 @@
 ---
-title: A beginner's guide to Ghidra
+title: A Beginner's Guide to Reverse Engineering
 date: 2025-09-13
 draft: false
 ---
-wowowowow
+***Reverse engineering***... so what is it?
