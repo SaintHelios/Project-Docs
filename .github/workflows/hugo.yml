@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      public_dir: ${{ steps.build.outputs.public_dir }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -21,23 +23,23 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --minify
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./public
+        id: build
+        run: |
+          hugo --minify
+          echo "public_dir=./public" >> $GITHUB_OUTPUT
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ${{ needs.build.outputs.public_dir }}
+          publish_branch: gh-pages
+          cname: helisocq.xyz
