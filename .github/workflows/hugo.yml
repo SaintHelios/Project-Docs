@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      public_dir: ${{ steps.build.outputs.public_dir }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -23,23 +21,12 @@ jobs:
           extended: true
 
       - name: Build
-        id: build
-        run: |
-          hugo --minify
-          echo "public_dir=./public" >> $GITHUB_OUTPUT
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        run: hugo --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ${{ needs.build.outputs.public_dir }}
+          publish_dir: ./public
           publish_branch: gh-pages
           cname: helisocq.xyz
